@@ -23,7 +23,7 @@ import FilmIoLogo from '../images/logos/filmio.jpg';
 import MotionLogo from '../images/logos/motion.svg';
 import { LinkedInIcon } from '../components/icons/LinkedInIcon';
 
-export const Name = 'Bartosz Jarocki';
+export const Name = 'Aufa Ikrimah';
 
 export const About = (
   <>

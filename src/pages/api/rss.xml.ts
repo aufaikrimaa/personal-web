@@ -5,7 +5,7 @@ import { notesApi } from '../../lib/notesApi';
 
 const rss: NextApiHandler = async (req, res) => {
   const feed = new RSS({
-    title: 'Bartosz Jarocki',
+    title: 'Aufa Ikrimah',
     site_url: 'https://jarocki.me',
     feed_url: 'https://jarocki.me/rss.xml',
   });
