@@ -6,29 +6,31 @@ import AmbitLogo from '../images/logos/ambit.png';
 import BarepapersLogo from '../images/logos/barepapers.svg';
 import BimLogo from '../images/logos/bim.png';
 import CDGOLogo from '../images/logos/cdgo.png';
-import ClevertechLogo from '../images/logos/clevertech.png';
 import EvercastLogo from '../images/logos/evercast.svg';
 import Howdy from '../images/logos/howdy.png';
 import JarockiMeLogo from '../images/logos/jarocki.svg';
-import JojoMobileLogo from '../images/logos/jojomobile.png';
 import MonitoLogo from '../images/logos/monito.svg';
 import Consultly from '../images/logos/consultly.svg';
 import MobileVikingsLogo from '../images/logos/mv.png';
-import NSNLogo from '../images/logos/nsn.svg';
 import ParabolLogo from '../images/logos/parabol.svg';
 import TastyCloudLogo from '../images/logos/tastycloud.png';
 import YearProgressLogo from '../images/logos/yearprogress.svg';
 import Minimal from '../images/logos/minimal.svg';
-import FilmIoLogo from '../images/logos/filmio.jpg';
-import MotionLogo from '../images/logos/motion.svg';
+import ChupLogo from '../images/logos/chuplogo.svg';
+import SystericLogo from '../images/logos/systericlogo.svg';
+import SkilvulLogo from '../images/logos/skilvullogo.svg';
+import AccentureLogo from '../images/logos/accenturelogo.svg';
+import PILogo from '../images/logos/pilogo.svg';
+import BNSPLogo from '../images/logos/bnsplogo.svg';
+import KampusMerdekaLogo from '../images/logos/kampusmerdekalogo.svg';
+import CiscoLogo from '../images/logos/ciscologo.svg';
 import { LinkedInIcon } from '../components/icons/LinkedInIcon';
 
 export const Name = 'Aufa Ikrimah';
 
 export const About = (
   <>
-    {`I used to consider myself a software engineer, but the reality is that I simply enjoy creating things. If you'd like to get in touch,`}{' '}
-    <ExternalLink href="mailto:bartosz@jarocki.me">send me an email.</ExternalLink>
+    {`I enjoy creating new things, especially in software engineering and art. I greatly enjoy discovering new things in both of them.`}
   </>
 );
 export const AboutExtended = `I live in Wrocław, Poland, having grown up in the small town of Góra in the western part of the country. I have a bachelor's degree in Control Systems Engineering and Robotics from the Wrocław University of Technology. I like programming, books, plants, mountain biking, whisky, and traveling the world with my wife, Kasia. The cosmos fascinates me, and I take great delight in gazing at the stars.`;
@@ -187,54 +189,78 @@ export const MyPastProjects: Project[] = [
 ];
 
 export const SocialMedia = [
-  { name: 'Twitter', link: 'https://twitter.com/BartoszJarocki', icon: XIcon },
-  { name: 'Instagram', link: 'https://www.instagram.com/bartosz.jarocki/', icon: InstagramIcon },
-  { name: 'Github', link: 'https://github.com/BartoszJarocki', icon: GitHubIcon },
-  { name: 'LinkedIn', link: 'https://www.linkedin.com/in/bjarocki', icon: LinkedInIcon },
+  { name: 'Twitter', link: 'https://x.com/__awaaa21', icon: XIcon },
+  { name: 'Instagram', link: 'https://www.instagram.com/aufaikrimaa/', icon: InstagramIcon },
+  { name: 'Github', link: 'https://github.com/aufaikrimaa', icon: GitHubIcon },
+  { name: 'LinkedIn', link: 'https://www.linkedin.com/in/aufaikrimah/', icon: LinkedInIcon },
 ] as const;
 
 export const Work = [
   {
-    company: 'Motion',
-    title: 'Senior Software Engineer',
-    logo: MotionLogo,
-    start: '2025',
+    company: 'Systeric',
+    title: 'Product Engineer',
+    logo: SystericLogo,
+    start: '2024',
     end: 'Present',
   },
   {
-    company: 'Film.io',
-    title: 'Software Architect',
-    logo: FilmIoLogo,
+    company: 'Chup Online Sdn Bhd',
+    title: 'Frontend Developer',
+    logo: ChupLogo,
     start: '2024',
     end: '2025',
   },
+] as const;
+
+export const Courses = [
   {
-    company: 'Parabol',
-    title: 'Full Stack Developer',
-    logo: ParabolLogo,
-    start: '2021',
+    company: 'Skilvul',
+    title: 'Freelance+ by Skilvul',
+    logo: SkilvulLogo,
+    start: 'Aug - Sep',
     end: '2024',
   },
   {
-    company: 'Clevertech',
-    title: 'Lead Android Developer → Full Stack Developer',
-    logo: ClevertechLogo,
-    start: '2015',
-    end: '2021',
+    company: 'Accenture',
+    title: ' Developer and Technology Virtual Intern',
+    logo: AccentureLogo,
+    start: 'April 2024',
+    end: 'June 2024',
   },
   {
-    company: 'Jojo Mobile',
-    title: 'Android Developer → Lead Android Developer',
-    logo: JojoMobileLogo,
-    start: '2012',
-    end: '2015',
+    company: 'Perempuan Inovasi',
+    title: 'Full Stack Web Developer',
+    logo: PILogo,
+    start: 'Sep 2023',
+    end: 'Feb 2024',
   },
   {
-    company: 'Nokia Siemens Networks',
-    title: 'C/C++ Developer',
-    logo: NSNLogo,
-    start: '2010',
-    end: '2012',
+    company: 'Skilvul',
+    title: 'Web Development (Gold)',
+    logo: SkilvulLogo,
+    start: 'Jun - Sep',
+    end: '2023',
+  },
+  {
+    company: 'BNSP',
+    title: 'Software Development (Certification)',
+    logo: BNSPLogo,
+    start: 'Aug',
+    end: '2023',
+  },
+  {
+    company: 'Kampus Merdeka',
+    title: 'Wirausaha Merdeka (SIWIRA INOTEK)',
+    logo: KampusMerdekaLogo,
+    start: 'Sep 2022',
+    end: 'Jan 2023',
+  },
+  {
+    company: 'Cisco Networking Academy',
+    title: 'PCAP: Programming Essentials in Python (Certification)',
+    logo: CiscoLogo,
+    start: 'Jun - Aug',
+    end: '2025',
   },
 ] as const;
 

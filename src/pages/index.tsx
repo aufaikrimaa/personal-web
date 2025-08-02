@@ -10,6 +10,7 @@ import { SocialLink } from '../components/SocialLink';
 import { NotePreview } from '../components/notes/NotePreview';
 import { About, Name, SocialMedia } from '../data/lifeApi';
 import { Note, notesApi } from '../lib/notesApi';
+import { Course } from 'src/components/Course';
 
 const seoTitle = 'Aufa Ikrimah';
 const seoDescription =
@@ -50,7 +51,7 @@ export default function Home({ latestNotes }: Props) {
           </div>
         </div>
       </Container>
-      <Photos />
+      {/* <Photos /> */}
       <Container className="mt-12">
         <div className="mx-auto grid max-w-xl grid-cols-1 gap-y-20 lg:max-w-none lg:grid-cols-2">
           <div className="flex flex-col gap-16">
@@ -60,6 +61,7 @@ export default function Home({ latestNotes }: Props) {
           </div>
           <div className="lg:ml-auto space-y-10 lg:pl-16 xl:pl-24">
             <Resume />
+            <Course />
           </div>
         </div>
       </Container>
