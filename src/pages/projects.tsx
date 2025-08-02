@@ -6,16 +6,16 @@ import { ProjectCard } from '../components/ProjectCard';
 import { MyCurrentProjects, MyPastProjects } from '../data/lifeApi';
 import { ANIMATION_FROM_PROPS, ANIMATION_TO_PROPS } from '../lib/animation';
 
-const seoTitle = 'Creating';
+const seoTitle = 'Projects';
 const seoDescription = "Things I've made trying to put my dent in the universe.";
 
-export default function Creating() {
+export default function Projects() {
   return (
     <>
       <NextSeo
         title={seoTitle}
         description={seoDescription}
-        canonical={`${process.env.NEXT_PUBLIC_URL}/creating`}
+        canonical={`${process.env.NEXT_PUBLIC_URL}/projects`}
         openGraph={{
           images: [
             {
