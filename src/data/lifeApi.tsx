@@ -507,61 +507,23 @@ export const Quotes = [
 export const Tools = {
   Workstation: [
     {
-      title: '14” MacBook Pro, M1 Max, 32GB RAM (2021)',
+      title: 'Lenovo ThinkPad T470s i7 gen 6',
       description:
-        'This laptop is a top-of-the-line machine that can handle virtually any task you throw at it, making it a worthwhile investment for anyone looking for a reliable and powerful laptop that can be used for years.',
-      href: 'https://amzn.to/3XkWxhF',
+        'A reliable business laptop with a 6th-gen Intel i7 processor. Not the newest, but perfect for coding, writing, and everyday tasks while I keep learning and building projects.',
+      href: 'https://www.lenovo.com/us/en/laptops/thinkpad/t-series/ThinkPad-T470s/p/22TP2TT470S',
     },
     {
-      title: 'Apple Studio Display 5K (Standard Glass)',
+      title: 'External Keyboard & Mouse',
       description:
-        '5K resolution helps to reduce strain on the eyes and makes it more comfortable to work for long periods of time. Not to mention that it looks great.',
-      href: 'https://amzn.to/3NnMlAu',
-    },
-    {
-      title: 'Logitech MX Keys Mini',
-      description:
-        'Backlit keys, compact design, good battery life and a great typing experience. Matches the space gray color of the laptop almost perfectly.',
-      href: 'https://amzn.to/3qSUNQS',
-    },
-    {
-      title: 'Logitech MX Master 3',
-      description: "Let's be honest, it just looks great with MX Keys Mini keyboard.",
-      href: 'https://amzn.to/3qXIvXl',
-    },
-    {
-      title: 'Apple Magic Trackpad',
-      description:
-        'Gestures, taps and swipes are something I miss when I work with my laptop closed.',
-      href: 'https://amzn.to/3pgETza',
-    },
-    {
-      title: 'Apple Magic Mouse',
-      description:
-        'Because it looks great and it allows me to post pictures with how badly the charging port is designed.',
-      href: 'https://amzn.to/43UuA30',
-    },
-    {
-      title: 'Autonomous ErgoChair Pro',
-      description: `If I'm going to slouch in the worst ergonomic position imaginable all day, I might as well do it in an expensive chair.`,
-      href: 'https://www.autonomous.ai/office-chairs/ergonomic-chair',
+        'I pair the laptop with a basic wireless keyboard and mouse for a more comfortable typing experience when working at my desk.',
+      href: '',
     },
   ],
   Software: [
     {
-      title: 'Visual Studio Code',
-      description: `I still miss WebStorm but at least VS Code does not consume 1000% CPU when I open it. And to be fair, it's a great editor.`,
-      href: 'https://code.visualstudio.com/',
-    },
-    {
-      title: 'iTerm2',
-      description: `I'm honestly not even sure what features I get with this that aren't just part of the macOS Terminal but it's what I use.`,
-      href: 'https://iterm2.com/',
-    },
-    {
-      title: 'TablePlus',
-      description: `Great software for working with databases. Has saved me from building about a thousand admin interfaces for my various projects over the years.`,
-      href: 'https://tableplus.com/',
+      title: 'Cursor',
+      description: `An AI-powered code editor that helps me write and refactor code faster. It’s like having a coding buddy that suggests improvements and saves time on repetitive tasks.`,
+      href: 'https://cursor.sh/',
     },
     {
       title: 'Figma',
@@ -574,19 +536,9 @@ export const Tools = {
       href: 'https://www.notion.so/',
     },
     {
-      title: 'Raycast',
-      description: `Window management, quick access to my most used apps, and a bunch of other useful features. I use it every day.`,
-      href: 'https://www.raycast.com/',
-    },
-    {
-      title: '1Password',
-      description: `Not much to say here. It's a great password manager.`,
-      href: 'https://1password.com/',
-    },
-    {
-      title: 'Cron',
-      description: `Calendar application done right`,
-      href: 'https://cron.com/',
+      title: 'Google Calendar',
+      description: 'I use time blocking here to plan my day and keep track of my schedule.',
+      href: 'https://calendar.google.com/',
     },
   ],
 } as const;
