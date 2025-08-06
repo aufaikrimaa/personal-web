@@ -33,7 +33,7 @@ export const About = (
     {`I enjoy creating new things, especially in software engineering and art. I greatly enjoy discovering new things in both of them.`}
   </>
 );
-export const AboutExtended = `I live in Wrocław, Poland, having grown up in the small town of Góra in the western part of the country. I have a bachelor's degree in Control Systems Engineering and Robotics from the Wrocław University of Technology. I like programming, books, plants, mountain biking, whisky, and traveling the world with my wife, Kasia. The cosmos fascinates me, and I take great delight in gazing at the stars.`;
+export const AboutExtended = `I live in Magelang, Central Java, a city located on the northern coast of Java Island. I hold an associate degree in Information Systems from Universitas Bina Sarana Informatika. I like programming, reading books, exploring arts, photography, and videography, as well as discovering culinary spots.`;
 
 export type Project = {
   title: string;
@@ -289,28 +289,8 @@ export const CompaniesLinks = [
 
 export const Books = [
   {
-    name: 'Shoe Dog: A Memoir by the Creator of Nike by Phil Knight',
-    link: 'https://www.amazon.com/Shoe-Dog-Memoir-Creator-Nike-ebook/dp/B0176M1A44',
-  },
-  {
-    name: 'The Black Swan: The Impact of the Highly Improbable by Nassim Nicholas Taleb',
-    link: 'https://amzn.to/2NwihaS',
-  },
-  {
-    name: 'Antifragile: Things That Gain from Disorder by Nassim Nicholas Taleb',
-    link: 'https://amzn.to/3aIG805',
-  },
-  {
-    name: 'Fooled by Randomness: The Hidden Role of Chance in Life and in the Markets by Nassim Nicholas Taleb',
-    link: 'https://amzn.to/3kbvaD9',
-  },
-  {
-    name: 'Daily stoic by Ryan Holiday',
-    link: 'https://amzn.to/3n8ATuC',
-  },
-  {
-    name: 'A Guide to the Good Life: The Ancient Art of Stoic Joy by William B. Irvine',
-    link: 'https://amzn.to/3iuL1ud',
+    name: 'Software Engineering - The Soft Parts by Addy Osmani',
+    link: 'https://addyosmani.com/blog/software-engineering-soft-parts/',
   },
   {
     name: 'Atomic Habits by James Clear',
@@ -323,32 +303,20 @@ export const VideosWorthWatching = [
     name: 'Steve Jobs 2005 Stanford Commencement Address',
     link: 'https://www.youtube.com/watch?v=UF8uR6Z6KLc',
   },
-  {
-    name: 'Falcon Heavy & Starman',
-    link: 'https://www.youtube.com/watch?v=A0FZIwabctw',
-  },
 ] as const;
 
 export const Podcasts = [
   {
-    name: 'Lex Fridman Podcast',
-    link: 'https://www.youtube.com/@lexfridman',
+    name: 'Makna Talks',
+    link: 'https://open.spotify.com/show/1PGN4ilb4aoWKkB7FNSLsx?si=4ada37ce8f2f452a',
   },
   {
-    name: 'Huberman Lab',
-    link: 'https://www.youtube.com/@hubermanlab',
+    name: 'Andreas Bordes',
+    link: 'https://open.spotify.com/show/7vRGphUOaEtbpc1DhPZWDK?si=64b8ad0e30ea4281',
   },
   {
-    name: 'Joe Rogan',
-    link: 'https://www.youtube.com/@joerogan',
-  },
-  {
-    name: 'The Tim Ferriss Show',
-    link: 'https://www.youtube.com/channel/UCznv7Vf9nBdJYvBagFdAHWw',
-  },
-  {
-    name: 'Build your SaaS',
-    link: 'https://saas.transistor.fm/',
+    name: 'Endgame with Gita Wirjawan',
+    link: 'https://open.spotify.com/show/72q1XjiuFViF2tx7IbQ5X5?si=d415a4a215a94b30',
   },
 ] as const;
 

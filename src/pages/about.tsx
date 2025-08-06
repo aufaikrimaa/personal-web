@@ -70,44 +70,20 @@ export default function AboutMe() {
             <Section>
               <Section.Title as="h2">Work</Section.Title>
               <Section.Content>
-                I&apos;m a software developer with over 13 years of experience. I started as a C/C++
-                developer, then transitioned to Android world and now I&apos;m mostly focused on
-                developing great user experiences using React.
+                I&apos;m a software engineer with experience in building web applications using
+                JavaScript, TypeScript, React.js, Next.js, Svelte, Express.js, and Nest.js. My
+                journey in web development began at the Perempuan Inovasi 2023 Bootcamp, where I led
+                a team to develop SheTalk, a web app that won 2nd place for Best Innovation.
                 <br />
-                <br />I created multiple Android applications from scratch for companies around the
-                world like{' '}
-                <ExternalLink href={'https://www.visionmedia.com/'}>VisionMedia</ExternalLink>,{' '}
-                <ExternalLink href={'https://www.dkms.org/en'}>DKMS</ExternalLink>,{' '}
-                <ExternalLink href={'https://www.aaa.com/'}>AAA</ExternalLink>,{' '}
-                <ExternalLink href={'https://polskapress.pl/pl'}>PolskaPress</ExternalLink> or{' '}
-                <ExternalLink href={'https://www.canaldigital.no/'}>Canal Digital</ExternalLink>. I
-                helped to create/review/design mobile applications for startups like{' '}
-                <ExternalLink href={'https://play.google.com/store/apps/details?id=io.bimapp'}>
-                  Bim
-                </ExternalLink>
-                , <ExternalLink href={'https://www.tastycloud.fr'}>Tastycloud</ExternalLink>,{' '}
-                <ExternalLink
-                  href={'https://play.google.com/store/apps/details?id=com.howdyhub.howdy'}
-                >
-                  Howdy
-                </ExternalLink>{' '}
-                and{' '}
-                <ExternalLink
-                  href={
-                    'https://play.google.com/store/apps/details?id=com.vikingco.vikingapp.poland'
-                  }
-                >
-                  Mobile Vikings
-                </ExternalLink>
-                . I developed a WebRTC powered video conferencing frontend application using
-                React.js/GraphQL/Typescript for{' '}
-                <ExternalLink href={'https://www.evercast.us'}>Evercast</ExternalLink>. I also had
-                led development teams many times. If you&apos;d like to work with me{' '}
-                <ExternalLink href="https://twitter.com/messages/compose?recipient_id=512460212">
-                  DM me on Twitter
-                </ExternalLink>{' '}
-                or just{' '}
-                <ExternalLink href="mailto:bartosz.jarocki@icloud.com">email me.</ExternalLink>
+                <br /> I’ve worked remotely as a Frontend Developer at Chup Online (Malaysia),
+                focusing on building and optimizing user interfaces with React.js and TypeScript.
+                During my time there, I also contributed to developing internal tools, integrating
+                APIs, and enhancing the overall user experience.
+                <br />
+                <br /> Currently, I’m a Product Engineer at Systeric, where I develop modern web
+                applications with Next.js, Svelte, Express.js, and Nest.js. I focus on writing
+                clean, maintainable code and delivering features that are both functional and
+                user-friendly.
               </Section.Content>
             </Section>
             <Section>
@@ -134,7 +110,7 @@ export default function AboutMe() {
                 </ul>
               </Section.Content>
             </Section>
-            <Section>
+            {/* <Section>
               <Section.Title as="h2">Blogs I read</Section.Title>
               <Section.Content>
                 <ul className="mt-1 list-disc list-inside">
@@ -145,7 +121,7 @@ export default function AboutMe() {
                   ))}
                 </ul>
               </Section.Content>
-            </Section>
+            </Section> */}
             <Section>
               <Section.Title as="h2">Videos worth watching</Section.Title>
               <Section.Content>
@@ -158,7 +134,7 @@ export default function AboutMe() {
                 </ul>
               </Section.Content>
             </Section>
-            <Section>
+            {/* <Section>
               <Section.Title as="h2">People with unique perspective I follow</Section.Title>
               <Section.Content>
                 {PeopleWorthFollowingOnTwitter.map<React.ReactNode>((personOnTwitter) => (
@@ -176,7 +152,7 @@ export default function AboutMe() {
                   <Quote quote={randomQuote.content} author={randomQuote.author} />
                 </div>
               </Section.Content>
-            </Section>
+            </Section> */}
           </div>
         </div>
       </Container>
