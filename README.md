@@ -11,7 +11,7 @@
 
 > A modern, performant personal website built with Next.js and Notion as a headless CMS
 
-[**🌐 Live Demo**](https://jarocki.me) | [**📚 Documentation**](#documentation)
+[**🌐 Live Demo**](https://aufaikrimah.vercel.app) | [**📚 Documentation**](#documentation)
 
 ![Screenshot](screenshots/screenshot.png)
 
@@ -84,16 +84,16 @@
 
 This project leverages modern web technologies for optimal performance and developer experience:
 
-| Technology | Purpose | Why This Choice |
-|------------|---------|----------------|
-| **[Next.js 14](https://nextjs.org/)** | React Framework | App Router, SSG/ISR, built-in optimizations |
-| **[TypeScript](https://typescriptlang.org/)** | Type Safety | Enhanced DX, fewer runtime errors |
-| **[Notion API](https://developers.notion.com/)** | Headless CMS | Non-technical content management |
-| **[Tailwind CSS](https://tailwindcss.com/)** | Styling | Rapid development, consistent design |
-| **[Next Themes](https://github.com/pacocoursey/next-themes)** | Theme Management | Seamless dark/light mode switching |
-| **[Vercel OG](https://vercel.com/docs/functions/edge-functions/og-image-generation)** | OG Images | Dynamic social media previews |
-| **[NextSEO](https://github.com/garmeeh/next-seo)** | SEO Optimization | Better search engine visibility |
-| **[Framer Motion](https://framer.com/motion/)** | Animations | Smooth, performant animations |
+| Technology                                                                            | Purpose          | Why This Choice                             |
+| ------------------------------------------------------------------------------------- | ---------------- | ------------------------------------------- |
+| **[Next.js 14](https://nextjs.org/)**                                                 | React Framework  | App Router, SSG/ISR, built-in optimizations |
+| **[TypeScript](https://typescriptlang.org/)**                                         | Type Safety      | Enhanced DX, fewer runtime errors           |
+| **[Notion API](https://developers.notion.com/)**                                      | Headless CMS     | Non-technical content management            |
+| **[Tailwind CSS](https://tailwindcss.com/)**                                          | Styling          | Rapid development, consistent design        |
+| **[Next Themes](https://github.com/pacocoursey/next-themes)**                         | Theme Management | Seamless dark/light mode switching          |
+| **[Vercel OG](https://vercel.com/docs/functions/edge-functions/og-image-generation)** | OG Images        | Dynamic social media previews               |
+| **[NextSEO](https://github.com/garmeeh/next-seo)**                                    | SEO Optimization | Better search engine visibility             |
+| **[Framer Motion](https://framer.com/motion/)**                                       | Animations       | Smooth, performant animations               |
 
 ---
 
@@ -157,10 +157,12 @@ NOTION_DATABASE_ID=your_database_id
 ### Getting Notion Credentials
 
 1. **Create a Notion Integration**
+
    - Go to [Notion Developers](https://developers.notion.com/)
    - Create a new integration and copy the token
 
 2. **Get Database ID**
+
    - Open your Notion database
    - Copy the ID from the URL: `notion.so/username/DATABASE_ID?v=...`
 
@@ -173,16 +175,16 @@ NOTION_DATABASE_ID=your_database_id
 
 Your Notion database must include these properties for the application to work correctly:
 
-| Property | Type | Required | Description |
-|----------|------|----------|-------------|
-| `title` | Title | ✅ | Post title (primary property) |
-| `slug` | Rich Text | ✅ | URL slug (e.g., "hello-world") |
-| `description` | Rich Text | ✅ | Post excerpt/description |
-| `published` | Checkbox | ✅ | Whether post is published |
-| `publishedAt` | Date | ✅ | Publication date |
-| `hashtags` | Multi-select | ✅ | Post tags/categories |
-| `inProgress` | Checkbox | ❌ | Shows "Work in Progress" badge |
-| `cover` | Files & Media | ❌ | Post cover image |
+| Property      | Type          | Required | Description                    |
+| ------------- | ------------- | -------- | ------------------------------ |
+| `title`       | Title         | ✅       | Post title (primary property)  |
+| `slug`        | Rich Text     | ✅       | URL slug (e.g., "hello-world") |
+| `description` | Rich Text     | ✅       | Post excerpt/description       |
+| `published`   | Checkbox      | ✅       | Whether post is published      |
+| `publishedAt` | Date          | ✅       | Publication date               |
+| `hashtags`    | Multi-select  | ✅       | Post tags/categories           |
+| `inProgress`  | Checkbox      | ❌       | Shows "Work in Progress" badge |
+| `cover`       | Files & Media | ❌       | Post cover image               |
 
 ### Database Template
 
@@ -261,10 +263,10 @@ The application automatically generates Open Graph images for social media shari
 ### Examples
 
 **Homepage**
-![Homepage OG](https://jarocki.me/api/og?title=Bartosz%20Jarocki&description=A%20passionate%20software%20engineer%20with%20an%20eye%20for%20details%20based%20in%20Wroc%C5%82aw,%20Poland.)
+![Homepage OG](https://aufaikrimah.vercel.app/api/og?title=Bartosz%20Jarocki&description=A%20passionate%20software%20engineer%20with%20an%20eye%20for%20details%20based%20in%20Wroc%C5%82aw,%20Poland.)
 
 **Blog Post**
-![Blog Post OG](https://jarocki.me/api/og?title=Monito,%20two%20weeks%20after%20launch&description=No%20audience,%20just%20Product%20Hunt%20and%20Hacker%20News%20launch.%20How%20did%20it%20go?)
+![Blog Post OG](https://aufaikrimah.vercel.app/api/og?title=Monito,%20two%20weeks%20after%20launch&description=No%20audience,%20just%20Product%20Hunt%20and%20Hacker%20News%20launch.%20How%20did%20it%20go?)
 
 ### Customization
 
@@ -408,6 +410,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 **[⬆ Back to Top](#bartosz-jarocki---personal-website)**
 
-Made with ❤️ by [Bartosz Jarocki](https://jarocki.me)
+Made with ❤️ by [Bartosz Jarocki](https://aufaikrimah.vercel.app)
 
 </div>
