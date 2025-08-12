@@ -1,15 +1,22 @@
+// pages/projects.tsx
 import { motion } from 'framer-motion';
 import { NextSeo } from 'next-seo';
+import { GetStaticProps } from 'next';
 
-import { PageLayout } from '../components/PageLayout';
-import { ProjectCard } from '../components/ProjectCard';
-import { MyCurrentProjects, MyPastProjects } from '../data/lifeApi';
-import { ANIMATION_FROM_PROPS, ANIMATION_TO_PROPS } from '../lib/animation';
+import { PageLayout } from 'src/components/PageLayout';
+import { ProjectCard } from 'src/components/ProjectCard';
+import { ANIMATION_FROM_PROPS, ANIMATION_TO_PROPS } from 'src/lib/animation';
+import { projectsApi, Project } from 'src/lib/projectsApi';
 
 const seoTitle = 'Projects';
 const seoDescription = "Things I've made trying to put my dent in the universe.";
 
-export default function Projects() {
+type ProjectsPageProps = {
+  currentProjects: Project[];
+  pastProjects: Project[];
+};
+
+export default function Projects({ currentProjects, pastProjects }: ProjectsPageProps) {
   return (
     <>
       <NextSeo
@@ -34,9 +41,9 @@ export default function Projects() {
           role="list"
           className="mt-12 grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {MyCurrentProjects.map((project) => (
+          {currentProjects.map((project) => (
             <motion.li
-              key={project.title}
+              key={project.id}
               initial={ANIMATION_FROM_PROPS}
               whileInView={ANIMATION_TO_PROPS}
               viewport={{ once: true }}
@@ -55,14 +62,14 @@ export default function Projects() {
           role="list"
           className="mt-12 grid grid-cols-1 gap-x-12 gap-y-16 sm:grid-cols-2 lg:grid-cols-3"
         >
-          {MyPastProjects.map((project) => (
+          {pastProjects.map((project) => (
             <motion.li
-              key={project.title}
+              key={project.id}
               initial={ANIMATION_FROM_PROPS}
               whileInView={ANIMATION_TO_PROPS}
               viewport={{ once: true }}
             >
-              <ProjectCard key={project.title} project={project} />
+              <ProjectCard project={project} />
             </motion.li>
           ))}
         </ul>
@@ -70,3 +77,19 @@ export default function Projects() {
     </>
   );
 }
+
+export const getStaticProps: GetStaticProps = async () => {
+  // Ambil semua projects dari Notion
+  const allProjects = await projectsApi.getProjects('desc');
+
+  const currentProjects = allProjects.filter((p) => p.status === 'current');
+  const pastProjects = allProjects.filter((p) => p.status === 'past');
+
+  return {
+    props: {
+      currentProjects,
+      pastProjects,
+    },
+    revalidate: 60, // regenerate tiap 1 menit
+  };
+};
