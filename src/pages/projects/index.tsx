@@ -9,7 +9,7 @@ import { ANIMATION_FROM_PROPS, ANIMATION_TO_PROPS } from 'src/lib/animation';
 import { projectsApi, Project } from 'src/lib/projectsApi';
 
 const seoTitle = 'Projects';
-const seoDescription = "Things I've made trying to put my dent in the universe.";
+const seoDescription = 'Things I’ve built along the way.';
 
 type ProjectsPageProps = {
   currentProjects: Project[];
@@ -32,7 +32,7 @@ export default function Projects({ currentProjects, pastProjects }: ProjectsPage
         }}
       />
       <PageLayout
-        title="Things I've made trying to put my dent in the universe."
+        title="Things I’ve built along the way."
         intro="A list of projects I've worked on, I'm working on and I will work on."
       >
         <h2 className="text-2xl font-bold tracking-tight">Now</h2>

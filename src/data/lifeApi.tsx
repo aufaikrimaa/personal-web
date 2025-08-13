@@ -19,7 +19,7 @@ export const About = (
     {`I enjoy creating new things, especially in software engineering and art. I greatly enjoy discovering new things in both of them.`}
   </>
 );
-export const AboutExtended = `I live in Magelang, Central Java, a city located on the northern coast of Java Island. I hold an associate degree in Information Systems from Universitas Bina Sarana Informatika. I like programming, reading books, exploring arts, photography, and videography, as well as discovering culinary spots.`;
+export const AboutExtended = `I live in Magelang, Central Java, a city located on the northern coast of Java Island. I hold an associate degree in Information Systems from Universitas Bina Sarana Informatika. I like programming, reading books, exploring arts, photography and videography.`;
 
 export const SocialMedia = [
   { name: 'Twitter', link: 'https://x.com/__awaaa21', icon: XIcon },
