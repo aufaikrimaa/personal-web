@@ -105,6 +105,40 @@ export const NotionBlockRenderer = ({ block }: Props) => {
           {caption && <figcaption>{caption}</figcaption>}
         </figure>
       );
+
+    // ✅ Tambahan untuk handle video
+    case 'video':
+      const videoSrc = value.type === 'external' ? value.external.url : value.file.url;
+      if (
+        videoSrc.includes('youtube.com') ||
+        videoSrc.includes('youtu.be') ||
+        videoSrc.includes('vimeo.com')
+      ) {
+        const embedUrl = videoSrc
+          .replace('watch?v=', 'embed/')
+          .replace('youtu.be/', 'youtube.com/embed/');
+        return (
+          <iframe
+            src={embedUrl}
+            frameBorder="0"
+            allowFullScreen
+            style={{ width: '100%', height: '400px' }}
+          />
+        );
+      }
+      return <video controls src={videoSrc} style={{ maxWidth: '100%' }} />;
+
+    // ✅ Tambahan untuk handle embed block Notion
+    case 'embed':
+      return (
+        <iframe
+          src={value.url}
+          frameBorder="0"
+          allowFullScreen
+          style={{ width: '100%', height: '400px' }}
+        />
+      );
+
     case 'divider':
       return <hr key={id} />;
     case 'quote':
