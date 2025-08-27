@@ -9,9 +9,16 @@ type Props = {
   projectContent: any[];
 };
 
-export default function ProjectPage({ project, projectContent }: Props) {
+export default function ProjectPage({
+  project,
+  projectContent,
+  previousPathname,
+}: Props & { previousPathname: string }) {
   return (
-    <ProjectLayout meta={{ title: project.title, description: project.description }}>
+    <ProjectLayout
+      meta={{ title: project.title, description: project.description }}
+      previousPathname={previousPathname}
+    >
       {projectContent.map((block) => (
         <NotionBlockRenderer key={block.id} block={block} />
       ))}
