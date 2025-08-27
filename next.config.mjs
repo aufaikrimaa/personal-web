@@ -4,12 +4,12 @@ const config = {
   experimental: {
     scrollRestoration: true,
   },
-  transpilePackages: ["geist"],
+  transpilePackages: ['geist'],
   images: {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 's3.**.amazonaws.com',
+        hostname: 'prod-files-secure.s3.us-west-2.amazonaws.com',
       },
       {
         protocol: 'https',

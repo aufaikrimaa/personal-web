@@ -90,7 +90,7 @@ class ProjectsApi {
           } catch {
             logo = {
               url: imageUrl,
-              placeholder: undefined,
+              placeholder: null,
               size: { width: 40, height: 40 },
             };
           }
@@ -110,7 +110,7 @@ class ProjectsApi {
                   label: page.properties.linkLabel.rich_text[0].plain_text,
                   href: page.properties.linkHref.url,
                 }
-              : undefined,
+              : null,
           isPublished: page.properties.isPublished.checkbox || false,
           publishedAt: page.properties.publishedAt.date?.start || '',
         };
@@ -119,10 +119,18 @@ class ProjectsApi {
   };
 
   private getPageContent = async (pageId: string) => {
-    const blocks = await this.notion.blocks.children.list({
-      block_id: pageId,
-    });
-    return blocks.results as BlockObjectResponse[];
+    const blocks = await this.notion.blocks.children.list({ block_id: pageId });
+
+    const fetchChildren = async (block: BlockObjectResponse): Promise<any> => {
+      if ('has_children' in block && block.has_children) {
+        const childrenResp = await this.notion.blocks.children.list({ block_id: block.id });
+        const children = await Promise.all(childrenResp.results.map(fetchChildren));
+        return { ...block, children };
+      }
+      return block;
+    };
+
+    return Promise.all(blocks.results.map(fetchChildren));
   };
 }
 

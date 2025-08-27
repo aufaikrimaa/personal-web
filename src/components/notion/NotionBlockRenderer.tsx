@@ -4,6 +4,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 import { Quote } from '../Quote';
+import React from 'react';
 
 //TODO: improve types here, cleanup the code
 type Props = {
@@ -95,12 +96,10 @@ export const NotionBlockRenderer = ({ block }: Props) => {
         <figure>
           <Image
             className="object-cover"
-            placeholder="blur"
             src={src}
             alt={caption}
-            blurDataURL={value.placeholder}
-            width={value.size.width}
-            height={value.size.height}
+            width={value.size?.width || 800} // fallback default
+            height={value.size?.height || 600}
           />
           {caption && <figcaption>{caption}</figcaption>}
         </figure>
@@ -172,6 +171,117 @@ export const NotionBlockRenderer = ({ block }: Props) => {
           {href}
         </a>
       );
+
+    case 'column_list':
+      return (
+        <div className="flex gap-4">
+          {block.children?.map((child: any) => (
+            <NotionBlockRenderer key={child.id} block={child} />
+          ))}
+        </div>
+      );
+
+    case 'column':
+      return (
+        <div className="flex-1">
+          {block.children?.map((child: any) => (
+            <NotionBlockRenderer key={child.id} block={child} />
+          ))}
+        </div>
+      );
+    case 'callout':
+      return (
+        <div className="p-3 my-2 bg-zinc-100 border-l-2 border-zinc-300 rounded-md">
+          <div className="text-sm">
+            {(() => {
+              // Pecah rich_text jadi baris-baris
+              const lines: TextRichTextItemResponse[][] = [];
+              let currentLine: TextRichTextItemResponse[] = [];
+
+              value.rich_text.forEach((t: TextRichTextItemResponse) => {
+                // kalau ada newline di dalam text
+                const parts = t.plain_text.split('\n');
+
+                parts.forEach((part, idx) => {
+                  if (idx > 0) {
+                    // push line sebelumnya, mulai line baru
+                    lines.push(currentLine);
+                    currentLine = [];
+                  }
+                  if (part.length > 0) {
+                    currentLine.push({
+                      ...t,
+                      text: { ...t.text, content: part },
+                      plain_text: part,
+                    });
+                  }
+                });
+              });
+
+              if (currentLine.length > 0) lines.push(currentLine);
+
+              return lines.map((line, i) => {
+                // gabung isi plain_text buat cari posisi `:`
+                const fullLine = line.map((t) => t.plain_text).join('');
+                const colonPos = fullLine.indexOf(':');
+
+                if (colonPos === -1) {
+                  return (
+                    <div key={i} className="grid grid-cols-[120px_1fr] gap-x-2">
+                      <span className="col-span-2">
+                        <NotionText textItems={line} />
+                      </span>
+                    </div>
+                  );
+                }
+
+                // split jadi label & content berdasarkan posisi colon
+                let currentCount = 0;
+                const label: TextRichTextItemResponse[] = [];
+                const content: TextRichTextItemResponse[] = [];
+
+                line.forEach((t) => {
+                  const len = t.plain_text.length;
+                  if (currentCount + len <= colonPos) {
+                    label.push(t);
+                  } else if (currentCount >= colonPos + 1) {
+                    content.push(t);
+                  } else {
+                    const cutIndex = colonPos - currentCount;
+                    if (cutIndex > 0) {
+                      label.push({
+                        ...t,
+                        text: { ...t.text, content: t.text.content.slice(0, cutIndex) },
+                        plain_text: t.plain_text.slice(0, cutIndex),
+                      });
+                    }
+                    if (cutIndex + 1 < len) {
+                      content.push({
+                        ...t,
+                        text: { ...t.text, content: t.text.content.slice(cutIndex + 1) },
+                        plain_text: t.plain_text.slice(cutIndex + 1),
+                      });
+                    }
+                  }
+                  currentCount += len;
+                });
+
+                return (
+                  <div key={i} className="grid grid-cols-[120px_1fr] gap-x-2">
+                    <span className="text-xs font-medium whitespace-nowrap">
+                      <NotionText textItems={label} />
+                    </span>
+                    <span className="text-xs">
+                      <NotionText textItems={content} />
+                    </span>
+                  </div>
+                );
+              });
+            })()}
+          </div>
+        </div>
+      );
+
     default:
       return (
         <>❌ Unsupported block (${type === 'unsupported' ? 'unsupported by Notion API' : type})</>

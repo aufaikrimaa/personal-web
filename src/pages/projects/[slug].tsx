@@ -11,9 +11,7 @@ type Props = {
 
 export default function ProjectPage({ project, projectContent }: Props) {
   return (
-    <ProjectLayout
-      meta={{ title: project.title, description: project.description, date: project.publishedAt }}
-    >
+    <ProjectLayout meta={{ title: project.title, description: project.description }}>
       {projectContent.map((block) => (
         <NotionBlockRenderer key={block.id} block={block} />
       ))}
