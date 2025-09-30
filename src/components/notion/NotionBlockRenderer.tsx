@@ -90,15 +90,16 @@ export const NotionBlockRenderer = ({ block }: Props) => {
     case 'child_page':
       return <p>{value.title}</p>;
     case 'image':
-      const src = value.type === 'external' ? value.external.url : value.file.url;
+      const imgSrc =
+        value.localUrl || (value.type === 'external' ? value.external.url : value.file.url);
       const caption = value.caption ? value.caption[0]?.plain_text : '';
       return (
         <figure>
           <Image
             className="object-cover"
-            src={src}
+            src={imgSrc}
             alt={caption}
-            width={value.size?.width || 800} // fallback default
+            width={value.size?.width || 800}
             height={value.size?.height || 600}
           />
           {caption && <figcaption>{caption}</figcaption>}
@@ -107,7 +108,8 @@ export const NotionBlockRenderer = ({ block }: Props) => {
 
     // ✅ Tambahan untuk handle video
     case 'video':
-      const videoSrc = value.type === 'external' ? value.external.url : value.file.url;
+      const videoSrc =
+        value.localUrl || (value.type === 'external' ? value.external.url : value.file.url);
       if (
         videoSrc.includes('youtube.com') ||
         videoSrc.includes('youtu.be') ||

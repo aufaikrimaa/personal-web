@@ -4,6 +4,9 @@ import { Client, isFullPage } from '@notionhq/client';
 import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import { compareAsc, compareDesc } from 'date-fns';
 import { getPlaiceholder } from 'plaiceholder';
+import fs from 'fs-extra';
+import path from 'path';
+import fetch from 'node-fetch';
 
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
@@ -33,6 +36,28 @@ const CompareFunctionLookup = {
   asc: compareAsc,
   desc: compareDesc,
 };
+
+const PUBLIC_PROJECTS_PATH = path.join(process.cwd(), 'public', 'projects');
+
+// helper download file
+async function downloadFile(url: string, filename: string): Promise<string> {
+  const filePath = path.join(PUBLIC_PROJECTS_PATH, filename);
+
+  // ✅ kalau file udah ada, return langsung tanpa download ulang
+  if (await fs.pathExists(filePath)) {
+    return `/projects/${filename}`;
+  }
+
+  // kalau belum ada, baru download
+  const res = await fetch(url);
+  if (!res.ok) throw new Error(`Failed to fetch ${url}`);
+  const buffer = await res.arrayBuffer();
+
+  await fs.ensureDir(path.dirname(filePath));
+  await fs.writeFile(filePath, Buffer.from(buffer));
+
+  return `/projects/${filename}`;
+}
 
 class ProjectsApi {
   constructor(
@@ -73,26 +98,27 @@ class ProjectsApi {
 
         let logo = null;
         if (logoFile) {
-          const imageUrl = logoFile.type === 'external' ? logoFile.external.url : logoFile.file.url; // handle upload langsung di Notion
+          const imageUrl = logoFile.type === 'external' ? logoFile.external.url : logoFile.file.url;
 
           try {
-            const buffer = await fetch(imageUrl).then((res) => res.arrayBuffer());
+            const ext = path.extname(imageUrl.split('?')[0]) || '.png';
+            const localUrl = await downloadFile(imageUrl, `logos/${page.id}${ext}`);
+
+            const buffer = await fs.readFile(
+              path.join(PUBLIC_PROJECTS_PATH, `logos/${page.id}${ext}`),
+            );
             const {
               base64,
               metadata: { width, height },
-            } = await getPlaiceholder(Buffer.from(buffer), { size: 64 });
+            } = await getPlaiceholder(buffer, { size: 64 });
 
             logo = {
-              url: imageUrl,
+              url: localUrl,
               placeholder: base64,
               size: { width, height },
             };
-          } catch {
-            logo = {
-              url: imageUrl,
-              placeholder: null,
-              size: { width: 40, height: 40 },
-            };
+          } catch (err) {
+            console.error('Logo download failed', err);
           }
         }
 
@@ -123,9 +149,42 @@ class ProjectsApi {
 
     const fetchChildren = async (block: BlockObjectResponse): Promise<any> => {
       if ('has_children' in block && block.has_children) {
-        const childrenResp = await this.notion.blocks.children.list({ block_id: block.id });
+        const childrenResp = await this.notion.blocks.children.list({
+          block_id: block.id,
+        });
         const children = await Promise.all(childrenResp.results.map(fetchChildren));
         return { ...block, children };
+      }
+
+      // ⬇️ download file kalau block image / video
+      if (block.type === 'image') {
+        const src =
+          block.image.type === 'external' ? block.image.external.url : block.image.file.url;
+        const ext = path.extname(src.split('?')[0]) || '.jpg';
+        try {
+          const localUrl = await downloadFile(src, `images/${block.id}${ext}`);
+          block.image.localUrl = localUrl;
+        } catch (err) {
+          console.error('Image download failed', err);
+        }
+      }
+      if (block.type === 'video') {
+        const src =
+          block.video.type === 'external' ? block.video.external.url : block.video.file.url;
+        // skip youtube/vimeo (embed langsung aja)
+        if (
+          !src.includes('youtube.com') &&
+          !src.includes('youtu.be') &&
+          !src.includes('vimeo.com')
+        ) {
+          const ext = path.extname(src.split('?')[0]) || '.mp4';
+          try {
+            const localUrl = await downloadFile(src, `videos/${block.id}${ext}`);
+            block.video.localUrl = localUrl;
+          } catch (err) {
+            console.error('Video download failed', err);
+          }
+        }
       }
       return block;
     };
