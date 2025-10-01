@@ -1,5 +1,5 @@
 // pages/projects/[slug].tsx
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetServerSideProps, GetStaticPaths, GetStaticProps } from 'next';
 import { ProjectLayout } from '../../components/ProjectLayout';
 import { Project as ProjectType, projectsApi } from '../../lib/projectsApi';
 import { NotionBlockRenderer } from '../../components/notion/NotionBlockRenderer';
@@ -26,7 +26,27 @@ export default function ProjectPage({
   );
 }
 
-export const getStaticProps: GetStaticProps<Props, { slug: string }> = async (ctx) => {
+// export const getStaticProps: GetStaticProps<Props, { slug: string }> = async (ctx) => {
+//   const slug = ctx.params?.slug;
+//   const projects = await projectsApi.getProjects();
+//   const project = projects.find((p) => p.slug === slug);
+
+//   if (!project) return { notFound: true };
+
+//   const projectContent = await projectsApi.getProject(project.id);
+
+//   return { props: { project, projectContent }, revalidate: 10 };
+// };
+
+// export const getStaticPaths: GetStaticPaths = async () => {
+//   const projects = await projectsApi.getProjects();
+//   return {
+//     paths: projects.map((p) => ({ params: { slug: p.slug } })),
+//     fallback: 'blocking',
+//   };
+// };
+
+export const getServerSideProps: GetServerSideProps<Props, { slug: string }> = async (ctx) => {
   const slug = ctx.params?.slug;
   const projects = await projectsApi.getProjects();
   const project = projects.find((p) => p.slug === slug);
@@ -35,13 +55,5 @@ export const getStaticProps: GetStaticProps<Props, { slug: string }> = async (ct
 
   const projectContent = await projectsApi.getProject(project.id);
 
-  return { props: { project, projectContent }, revalidate: 10 };
-};
-
-export const getStaticPaths: GetStaticPaths = async () => {
-  const projects = await projectsApi.getProjects();
-  return {
-    paths: projects.map((p) => ({ params: { slug: p.slug } })),
-    fallback: 'blocking',
-  };
+  return { props: { project, projectContent } };
 };

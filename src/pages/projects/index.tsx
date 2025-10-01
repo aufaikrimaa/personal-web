@@ -78,8 +78,23 @@ export default function Projects({ currentProjects, pastProjects }: ProjectsPage
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  // Ambil semua projects dari Notion
+// export const getStaticProps: GetStaticProps = async () => {
+//   // Ambil semua projects dari Notion
+//   const allProjects = await projectsApi.getProjects('desc');
+
+//   const currentProjects = allProjects.filter((p) => p.status === 'current');
+//   const pastProjects = allProjects.filter((p) => p.status === 'past');
+
+//   return {
+//     props: {
+//       currentProjects,
+//       pastProjects,
+//     },
+//     revalidate: 60, // regenerate tiap 1 menit
+//   };
+// };
+
+export const getServerSideProps = async () => {
   const allProjects = await projectsApi.getProjects('desc');
 
   const currentProjects = allProjects.filter((p) => p.status === 'current');
@@ -90,6 +105,5 @@ export const getStaticProps: GetStaticProps = async () => {
       currentProjects,
       pastProjects,
     },
-    revalidate: 60, // regenerate tiap 1 menit
   };
 };
