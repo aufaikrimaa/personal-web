@@ -1,12 +1,9 @@
-// projects.api.ts
+// lib/projectsApi.ts
 // @ts-nocheck
 import { Client, isFullPage } from '@notionhq/client';
 import { BlockObjectResponse } from '@notionhq/client/build/src/api-endpoints';
 import { compareAsc, compareDesc } from 'date-fns';
 import { getPlaiceholder } from 'plaiceholder';
-import fs from 'fs-extra';
-import path from 'path';
-import fetch from 'node-fetch';
 
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
@@ -37,28 +34,6 @@ const CompareFunctionLookup = {
   desc: compareDesc,
 };
 
-const PUBLIC_PROJECTS_PATH = path.join(process.cwd(), 'public', 'projects');
-
-// helper download file
-async function downloadFile(url: string, filename: string): Promise<string> {
-  const filePath = path.join(PUBLIC_PROJECTS_PATH, filename);
-
-  // ✅ kalau file udah ada, return langsung tanpa download ulang
-  if (await fs.pathExists(filePath)) {
-    return `/projects/${filename}`;
-  }
-
-  // kalau belum ada, baru download
-  const res = await fetch(url);
-  if (!res.ok) throw new Error(`Failed to fetch ${url}`);
-  const buffer = await res.arrayBuffer();
-
-  await fs.ensureDir(path.dirname(filePath));
-  await fs.writeFile(filePath, Buffer.from(buffer));
-
-  return `/projects/${filename}`;
-}
-
 class ProjectsApi {
   constructor(
     private readonly notion: Client,
@@ -69,9 +44,9 @@ class ProjectsApi {
     const projects = await this.getDatabaseContent(this.databaseId);
 
     return projects
-      .sort((a, b) => {
-        return CompareFunctionLookup[sortOrder](new Date(a.publishedAt), new Date(b.publishedAt));
-      })
+      .sort((a, b) =>
+        CompareFunctionLookup[sortOrder](new Date(a.publishedAt), new Date(b.publishedAt)),
+      )
       .slice(0, limit);
   }
 
@@ -92,34 +67,20 @@ class ProjectsApi {
       db.next_cursor = next_cursor;
     }
 
-    return await Promise.all(
-      db.results.filter(isFullPage).map(async (page) => {
+    return db.results
+      .filter(isFullPage)
+      .map((page) => {
         const logoFile = page.properties.logo?.files?.[0] ?? null;
 
         let logo = null;
         if (logoFile) {
-          const imageUrl = logoFile.type === 'external' ? logoFile.external.url : logoFile.file.url;
+          const src = logoFile.type === 'external' ? logoFile.external.url : logoFile.file.url;
 
-          try {
-            const ext = path.extname(imageUrl.split('?')[0]) || '.png';
-            const localUrl = await downloadFile(imageUrl, `logos/${page.id}${ext}`);
-
-            const buffer = await fs.readFile(
-              path.join(PUBLIC_PROJECTS_PATH, `logos/${page.id}${ext}`),
-            );
-            const {
-              base64,
-              metadata: { width, height },
-            } = await getPlaiceholder(buffer, { size: 64 });
-
-            logo = {
-              url: localUrl,
-              placeholder: base64,
-              size: { width, height },
-            };
-          } catch (err) {
-            console.error('Logo download failed', err);
-          }
+          logo = {
+            // lewat proxy API
+            url: `/api/notion-proxy?url=${encodeURIComponent(src)}`,
+            size: { width: 800, height: 600 },
+          };
         }
 
         return {
@@ -140,8 +101,8 @@ class ProjectsApi {
           isPublished: page.properties.isPublished.checkbox || false,
           publishedAt: page.properties.publishedAt.date?.start || '',
         };
-      }),
-    ).then((projects) => projects.filter((p) => p.isPublished));
+      })
+      .filter((p) => p.isPublished);
   };
 
   private getPageContent = async (pageId: string) => {
@@ -156,36 +117,24 @@ class ProjectsApi {
         return { ...block, children };
       }
 
-      // ⬇️ download file kalau block image / video
+      // Image / Video handling → lewat proxy
       if (block.type === 'image') {
         const src =
           block.image.type === 'external' ? block.image.external.url : block.image.file.url;
-        const ext = path.extname(src.split('?')[0]) || '.jpg';
-        try {
-          const localUrl = await downloadFile(src, `images/${block.id}${ext}`);
-          block.image.localUrl = localUrl;
-        } catch (err) {
-          console.error('Image download failed', err);
-        }
+        block.image.localUrl = `/api/notion-proxy?url=${encodeURIComponent(src)}`;
       }
+
       if (block.type === 'video') {
         const src =
           block.video.type === 'external' ? block.video.external.url : block.video.file.url;
-        // skip youtube/vimeo (embed langsung aja)
-        if (
-          !src.includes('youtube.com') &&
-          !src.includes('youtu.be') &&
-          !src.includes('vimeo.com')
-        ) {
-          const ext = path.extname(src.split('?')[0]) || '.mp4';
-          try {
-            const localUrl = await downloadFile(src, `videos/${block.id}${ext}`);
-            block.video.localUrl = localUrl;
-          } catch (err) {
-            console.error('Video download failed', err);
-          }
+
+        if (src.includes('youtube.com') || src.includes('youtu.be') || src.includes('vimeo.com')) {
+          block.video.localUrl = src; // embed langsung
+        } else {
+          block.video.localUrl = `/api/notion-proxy?url=${encodeURIComponent(src)}`;
         }
       }
+
       return block;
     };
 
